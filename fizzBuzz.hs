@@ -1,3 +1,4 @@
+import Data.Char(intToDigit)
 
 main :: IO ()
 main = mapM_ putStrLn $ map translate [1..100]
@@ -7,5 +8,7 @@ translate n | isFizz && isBuzz = "FizzBuzz"
             | isFizz = "Fizz"
             | isBuzz = "Buzz"
             | otherwise = show n
-            where isFizz = n `rem` 3 == 0
-                  isBuzz = n `rem` 5 == 0
+            where isFizz = check 3 n
+                  isBuzz = check 5 n
+                  check b n = n `rem` b == 0 || has (intToDigit b) n
+                  has c = (elem c) . show
